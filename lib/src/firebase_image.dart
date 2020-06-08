@@ -69,7 +69,10 @@ class FirebaseImage extends ImageProvider<FirebaseImage> {
       String location, FirebaseApp firebaseApp) {
     FirebaseStorage storage =
         FirebaseStorage(app: firebaseApp, storageBucket: _getBucket(location));
-    return storage.ref().child(_getImagePath(location));
+    ////// chetan changed below 2 lines
+     final uri = Uri.parse(location);
+    var pathlist = location.split('${uri.scheme}://${uri.authority}');
+    return storage.ref().child(pathlist[1);
   }
 
   Future<Uint8List> _fetchImage() async {
